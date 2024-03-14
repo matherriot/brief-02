@@ -1,0 +1,11 @@
+@import url(./reset.min.css);
+
+/* Liste des themes */
+@import url(./themes/light-mauve.css);
+@import url(./themes/dark-mauve.css);
+
+/* Propriétés générales */
+@import url(./global.css);
+
+/* Propriétés des éléments spécifiques */
+@import url(./components/index.css);
