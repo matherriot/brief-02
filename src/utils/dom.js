@@ -53,3 +53,13 @@ export function getElementParentByChildId(childId) {
   return false;
 }
 
+/**
+ * @function
+ * @name body
+ * @kind function
+ * @returns {HTMLElement}
+ * @exports
+ */
+export function body() {
+  return document.body
+}

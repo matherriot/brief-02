@@ -1,22 +1,28 @@
+import Utils from "./../../utils/index.js";
+
 export class ThemeProvider {
-  #isDarkDefault;
   #isDark;
   #darkClassName;
-  #lightClassName;
-  constructor(darkDefault, darkClassName, lightClassName){
-    this.#isDarkDefault = darkDefault | false;
+  constructor(darkDefault, darkClassName){
     this.#darkClassName = darkClassName;
-    this.#lightClassName = lightClassName;
+    if (darkDefault) {
+      this.#isDark = true;
+    }
   }
 
-  setTheme(theme) {
-    if (theme === "dark") {
-      this.#isDark = true
+  toggleTheme() {
+    if (this.#isDark) {
+      return Utils.dom.body().classList.remove(`${this.#darkClassName}`)
     }
-    if (theme === "light") {
-      this.#isDark = false
+    if (!this.#isDark) {
+      return Utils.dom.body().classList.add(`${this.#darkClassName}`)
     }
-    this.#isDark = theme
+  }
+
+  setColorTheme(theme) {
+    if (a) {
+      
+    }
   }
 
 }
