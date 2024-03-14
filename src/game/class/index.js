@@ -2,8 +2,10 @@ import { GameView } from "./game-view";
 import { TicTacToe } from "./tic-tac-toe";
 import { ThemeProvider } from "./theme-provider.js";
 
-export default Class = {
+const Class = {
   GameView,
   TicTacToe,
   ThemeProvider
 }
+
+export default Class;
