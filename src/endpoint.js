@@ -3,7 +3,7 @@ const version = "0.0.1";
 
 import * as Prod from "./game/bootloader.js";
 import * as Dev from "./game/bootloader.dev.js";
-import utils from "./utils/index.js";
+import Utils from "./utils/index.js";
 
 async function boot(env) {
   if (env !== "dev") {
@@ -30,7 +30,7 @@ addEventListener("DOMContentLoaded", () => {
     let choiceTimeout = 5
     setInterval(()=>{
       if (choiceTimeout >= 0) {
-        utils.dom.getElementById("main").innerHTML = `
+        Utils.dom.getElementById("main").innerHTML = `
           <div id="load-warn" style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 3rem;">
             <h1>Veuillez choisir un mode d'execution :</h1>
             <div style="font-size: larger; display: flex; flex-direction: column; gap: 2rem;">
