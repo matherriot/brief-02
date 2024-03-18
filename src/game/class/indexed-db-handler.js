@@ -4,53 +4,80 @@ import Utils from "../../utils";
  * Class representing an IndexedDB.
  * @class
  */
-export class IndexedDb {
-  #dbName;
-  #mainIndexedDataBase;
+/**
+ * Represents a wrapper around the IndexedDB API for easy database management.
+ */
+class IndexedDb {
   constructor(dbName) {
     console.group("IndexedDB initialization...")
-    this.#dbName = dbName;
-    const IDBOpenRequest = window.indexedDB.open(`${this.#dbName}`);
+    this.dbName = dbName;
+    this.DB_NOT_OPEN_ERROR = `Database is not open`;
+    this.OPEN_DB_SUCCESS_MSG = `Successful opening of the database`;
+    this.openAndHandleDbRequest();
+  }
+
+  openAndHandleDbRequest() {
+    const IDBOpenRequest = window.indexedDB.open(this.dbName);
     IDBOpenRequest.onerror = () => {
-      Utils.alert.send(`Unable to open local database "${this.#dbName}".`, true)
+      Utils.alert.send(`Unable to open local database "${this.dbName}".`, true)
     };
     IDBOpenRequest.onsuccess = () => {
-      this.#mainIndexedDataBase = IDBOpenRequest.result
-      console.debug(`Successful opening of the database "${this.#dbName}".`)
-      console.trace(this.#mainIndexedDataBase)
+      this.database = IDBOpenRequest.result;
+      console.debug(`${this.OPEN_DB_SUCCESS_MSG} "${this.dbName}".`);
+      console.trace(this.database);
     };
     console.groupEnd()
   }
 
+  /**
+   * Gets the name of the main database.
+   *
+   * @return {string} The name of the main database.
+   */
   getMainDbName() {
-    return this.#dbName;
+    return this.dbName;
   }
 
   /**
-   * Throws an error indicating that the specified database is not open.
+   * Throws an error if the database is not open.
    *
-   * @throws {Error} - If the database is not open.
+   * @throws {Error} - Error indicating that the database is not open.
    */
-  #openDatabaseError() {
-    const errorMessage = `Database "${this.#dbName}" is not open.`;
+  throwDatabaseNotFoundError() {
+    const errorMessage = `${this.DB_NOT_OPEN_ERROR} "${this.dbName}".`;
     console.error(errorMessage);
     throw new Error(errorMessage);
   }
 
   /**
-   * Creates a transaction for the specified store in the IndexedDB.
+   * Opens a transaction on the specified store using the given mode.
    *
-   * @param {string} storeName - The name of the store to create a transaction for.
-   * @param {string} [mode='readwrite'] - The transaction mode ('readonly' or 'readwrite'). Default is 'readwrite'.
-   * @return {IDBTransaction} - The created transaction object.
-   * @throws {Error} - Throws an error if the main IndexedDB is not available.
+   * @param {string} storeName - The name of the store to open the transaction on.
+   * @param {IDBTransactionMode} mode - The mode of the transaction to be opened. Valid values
+   * are 'readonly', 'readwrite', and 'versionchange'.
+   * @return {IDBTransaction} - The opened transaction.
+   * @throws {Error} - If the database is not available.
    */
-  createTransaction(storeName, mode = 'readwrite') {
-    if (this.#mainIndexedDataBase) {
-      return this.#mainIndexedDataBase.transaction(storeName, mode);
+  openTransaction(storeName, mode) {
+    if (this.database) {
+      return this.database.transaction(storeName, mode);
     } else {
-      this.#openDatabaseError();
+      this.throwDatabaseNotFoundError();
     }
+  }
+
+  /**
+   * Opens an IndexedDB object store.
+   *
+   * @param {string} storeName - The name of the database store to open.
+   * @param {string} objectName - The name of the object store to open.
+   * @param {IDBTransactionMode} mode - The mode to open the object store in.
+   *
+   * @returns {IDBObjectStore} - The opened object store.
+   */
+  openObjectStore(storeName, objectName, mode) {
+    const trans = this.openTransaction(storeName, mode);
+    return trans.objectStore(objectName);
   }
 }
 
