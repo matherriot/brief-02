@@ -1,14 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Morpioned</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tyra</title>
+  <link rel="stylesheet" href="index.css">
+  <script src="scripts/index.js" type="module"></script>
 </head>
 <body>
-    <div id="main">
-        <noscript>Veuillez activer ECMA Script !</noscript>
+  <header>
+    <h1>Tyra runner</h1>
+    <h2 id="stats"></h2>
+  </header>
+  <section>
+    <div id="pause" style="display: none">
+      <p>Le jeu est actuellement en pause, appuyez sur la toucher ENTRER</p>
     </div>
-    <script type="module" src="./endpoint.js"></script>
+    <div id="game">
+
+    </div>
+  </section>
+  <footer>
+    <p>Brief 02 - Mathis Herriot</p>
+    <div><button id="freeze-btn" onclick="freezeAll()">Freeze</button><button id="unfreeze-btn">unFreeze</button></div>
+  </footer>
 </body>
 </html>
