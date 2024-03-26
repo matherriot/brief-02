@@ -1,4 +1,4 @@
-import actions from "../action.js";
+import actions from "../action/index.js";
 
 
 export let controls = [
