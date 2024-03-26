@@ -12,6 +12,8 @@ Le jeu est basé sur le HTML, le CSS et le JavaScript.
 - Boutons pour geler et dégeler le jeu (via touche pause également).
 - Possibilité de mettre le jeu en pause.
 
+<img src="https://raw.githubusercontent.com/matherriot/brief-02/prod/schema.svg">
+
 ## Fonctionnalités manquante
 
 - Execution des taches de déplacement et de collision des objets avec le/les joueurs
