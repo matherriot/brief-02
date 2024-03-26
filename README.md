@@ -1,2 +1,2 @@
-# brief-02
+# brief-02 | Steve
 Jeu web - JavaScript natif
